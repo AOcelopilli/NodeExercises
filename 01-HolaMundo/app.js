@@ -10,5 +10,5 @@ console.log(nombre);
 const nombre = "Angel";
 console.log(nombre);
 
-const nombre2 = "Jesus";
+const nombre2 = "Jesus Pineda";
 console.log(nombre2);
