@@ -1,2 +1,2 @@
 # NodeExercises
-Con tiene ejercicios de Node js que se vayan desarrollando por un curso.
+Codigos del curso en Udemy de Fernando Herrera que ire desarrollando.
