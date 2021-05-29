@@ -9,7 +9,7 @@ const yargs = require("yargs")
     alias: "listar",
     type: "boolean",
     default: false,
-    describe: "Lista el resultado de la base multiplicada por su numero",
+    describe: "Muestra la tabla en consola.",
   })
   .check((argv, options) => {
     if (isNaN(argv.b)) {
@@ -17,3 +17,5 @@ const yargs = require("yargs")
     }
     return true;
   }).argv;
+
+module.exports = yargs;

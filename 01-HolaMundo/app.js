@@ -7,8 +7,8 @@ nombre = "Jesus";
 console.log(nombre);
  */
 
-const nombre = "Angel";
+const nombre = "Angel Jesus";
 console.log(nombre);
 
-const nombre2 = "Jesus Pineda";
+const nombre2 = "Pineda Aguirre";
 console.log(nombre2);
