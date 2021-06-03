@@ -69,13 +69,29 @@ class Tareas {
 
     formatearTareas(tareasParaMostrar);
   }
+
+  toggleCompletadas(ids = []) {
+    ids.forEach((id) => {
+      const tarea = this._listado[id];
+
+      if (!tarea.completadoEn) {
+        tarea.completadoEn = new Date().toISOString();
+      }
+    });
+
+    this.listadoArr.forEach((tarea) => {
+      if (!ids.includes(tarea.id)) {
+        this._listado[tarea.id].completadoEn = null;
+      }
+    });
+  }
 }
 
 const formatearTareas = (tareas) => {
   console.log();
-  tareas.forEach(({ id, desc, completadoEn }, idx) => {
+  tareas.forEach(({ desc, completadoEn }, idx) => {
     let indice = `${idx + 1}.`.green,
-      estado = completadoEn ? "Completo".green : "Pendiente".red;
+      estado = completadoEn ? completadoEn.green : "Pendiente".red;
 
     console.log(`${indice} ${desc} :: ${estado}`);
   });
