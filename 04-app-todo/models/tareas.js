@@ -11,13 +11,17 @@ class Tareas {
       listado.push(tarea);
     });
 
-    listado.push();
-
     return listado;
   }
 
   constructor() {
     this._listado = {};
+  }
+
+  borrarTarea(id = "") {
+    if (this._listado[id]) {
+      delete this._listado[id];
+    }
   }
 
   cargarTareasFromArray(tareas = []) {
@@ -35,10 +39,6 @@ class Tareas {
   }
 
   listadoCompleto() {
-    // 1: en verde
-    // Completada: verde
-    // Pendiente: rojo
-    // 1. tarea
     console.log();
 
     this.listadoArr.forEach(({ id, desc, completadoEn: estado }, idx) => {
@@ -77,7 +77,7 @@ const formatearTareas = (tareas) => {
     let indice = `${idx + 1}.`.green,
       estado = completadoEn ? "Completo".green : "Pendiente".red;
 
-    console.log(`${indice} ${desc} :: ${completadoEn}`);
+    console.log(`${indice} ${desc} :: ${estado}`);
   });
   console.log();
 };
