@@ -2,8 +2,10 @@ const inquirer = require("inquirer");
 
 require("colors");
 
+/* app config */
+
 const inquirerMenu = async () => {
-  //console.clear();
+  console.clear();
   console.log("========================".green);
   console.log("  Seleccione una opcion ".white);
   console.log("========================".green);
@@ -73,35 +75,6 @@ const leerInput = async (message) => {
   return desc;
 };
 
-const listadoTareasBorrar = async (tareas = []) => {
-  const choices = tareas.map((tarea, i) => {
-    const idx = `${i + 1}. `.green;
-
-    return {
-      value: tarea.id,
-      name: `${idx} ${tarea.desc}`,
-    };
-  });
-
-  choices.unshift({
-    value: "0",
-    name: "0. ".green + "Cancelar",
-  });
-
-  const preguntas = [
-    {
-      type: "list",
-      name: "id",
-      message: "Borrar",
-      choices,
-    },
-  ];
-
-  const { id } = await inquirer.prompt(preguntas);
-
-  return id;
-};
-
 const confirmar = async (message) => {
   const question = [
     {
@@ -114,6 +87,37 @@ const confirmar = async (message) => {
   const { ok } = await inquirer.prompt(question);
 
   return ok;
+};
+
+/* app main actions */
+
+const listarLugares = async (lugares = []) => {
+  const choices = lugares.map((lugar, i) => {
+    const idx = `${i + 1}. `.green;
+
+    return {
+      value: lugar.id,
+      name: `${idx} ${lugar.placeName}`,
+    };
+  });
+
+  choices.unshift({
+    value: "0",
+    name: "0. ".green + "Cancelar",
+  });
+
+  const preguntas = [
+    {
+      type: "list",
+      name: "id",
+      message: "Seleccione lugar:",
+      choices,
+    },
+  ];
+
+  const { id } = await inquirer.prompt(preguntas);
+
+  return id;
 };
 
 const mostrarListadoChecklist = async (tareas = []) => {
@@ -145,7 +149,7 @@ module.exports = {
   inquirerMenu,
   pausa,
   leerInput,
-  listadoTareasBorrar,
+  listarLugares,
   confirmar,
   mostrarListadoChecklist,
 };

@@ -1,6 +1,11 @@
 require("dotenv").config();
 
-const { leerInput, inquirerMenu, pausa } = require("./helpers/inquirer");
+const {
+  leerInput,
+  inquirerMenu,
+  pausa,
+  listarLugares,
+} = require("./helpers/inquirer");
 const Busquedas = require("./models/busquedas");
 
 const main = async () => {
@@ -13,24 +18,46 @@ const main = async () => {
 
     switch (opt) {
       case 1:
-        const lugar = await leerInput("Ciudad: ");
-        await busquedas.ciudad(lugar);
         // mostrar mensaje
+        const termino = await leerInput("Ciudad: ");
 
         // buscar lugares
+        const lugares = await busquedas.ciudad(termino);
 
         // Seleccionar el lugar
+        const id = await listarLugares(lugares);
+        if (id === "0") continue;
+
+        // Datos de la ciudad
+        const ciudad = lugares.find((lugar) => lugar.id === id);
+
+        // guardar en DB
+        busquedas.agregarHistorial(ciudad.placeName);
+
+        const { cityName, lat, lng } = ciudad;
 
         // clima
+        const cityWeather = await busquedas.climaLugar(lat, lng);
 
-        // mostarr resultados
+        const { desc, min, max, temp } = cityWeather;
+
+        // mostrar resultados
+        console.clear();
         console.log("\nInformación de la ciudad");
-        console.log("Ciudad: ");
-        console.log("Lat: ");
-        console.log("Lng: ");
-        console.log("Temperatura: ");
-        console.log("Temp Min: ");
-        console.log("Temp Max: ");
+        console.log("Ciudad: ", cityName);
+        console.log("Lat: ", lat);
+        console.log("Lng: ", lng);
+        console.log("Descripcion:", desc);
+        console.log("Temperatura: ", temp, "°C");
+        console.log("Temp Min: ", min, "°C");
+        console.log("Temp Max: ", max, "°C");
+        break;
+
+      case 2:
+        busquedas.getHistorialCapitalizado.forEach((lugar, i) => {
+          const idx = `${i + 1}`.green;
+          console.log(`${idx} ${lugar}`);
+        });
         break;
 
       default:
