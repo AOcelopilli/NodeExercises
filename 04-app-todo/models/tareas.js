@@ -3,33 +3,8 @@ const Tarea = require("./tarea");
 class Tareas {
   _listado = {};
 
-  get listadoArr() {
-    const listado = [];
-    Object.keys(this._listado).forEach((key) => {
-      // Con ayuda de la KEY podemos acceder a la tarea completa y crear un arreglo.
-      const tarea = this._listado[key];
-      listado.push(tarea);
-    });
-
-    return listado;
-  }
-
   constructor() {
     this._listado = {};
-  }
-
-  borrarTarea(id = "") {
-    if (this._listado[id]) {
-      delete this._listado[id];
-    }
-  }
-
-  cargarTareasFromArray(tareas = []) {
-    // mostrar tareas
-
-    tareas.forEach((tarea) => {
-      this._listado[tarea.id] = tarea;
-    });
   }
 
   crearTarea(desc = "") {
@@ -52,6 +27,31 @@ class Tareas {
     });
 
     console.log();
+  }
+
+  get listadoArr() {
+    const listado = [];
+    Object.keys(this._listado).forEach((key) => {
+      // Con ayuda de la KEY podemos acceder a la tarea completa y crear un arreglo.
+      const tarea = this._listado[key];
+      listado.push(tarea);
+    });
+
+    return listado;
+  }
+
+  borrarTarea(id = "") {
+    if (this._listado[id]) {
+      delete this._listado[id];
+    }
+  }
+
+  cargarTareasFromArray(tareas = []) {
+    // mostrar tareas
+
+    tareas.forEach((tarea) => {
+      this._listado[tarea.id] = tarea;
+    });
   }
 
   listarPendientesCompletadas(completadas = false) {

@@ -1,5 +1,4 @@
 require("colors");
-const inquirer = require("inquirer");
 const { guardarDB, leerDB } = require("./helpers/guardarArchivo");
 const {
   inquirerMenu,
@@ -9,7 +8,6 @@ const {
   confirmar,
   mostrarListadoChecklist,
 } = require("./helpers/inquirer");
-const Tarea = require("./models/tarea");
 const Tareas = require("./models/tareas");
 
 console.clear();
@@ -66,6 +64,7 @@ const main = async () => {
             console.log("Tarea borrada.");
           }
         }
+
         break;
     }
 
