@@ -2,12 +2,25 @@ const express = require("express");
 const app = express();
 const port = 8080;
 
-app.get("/", function (req, res) {
+/* Mostrar contenido estatico, primero creamos una carpeta llamada public*/
+
+/* Necesitamos decirle a node que queremos que nuestra página sea de contenido publico para poder mostrarla en la web.  */
+
+/* Con ayuda de un middleware de express podemos mostrar esto. */
+
+app.use(express.static("public"));
+
+/* La siguiente linea no se ejecuta, porque una vez servido el contenido desde  */
+/* app.get("/", function (req, res) {
   res.send("Hello World");
+}); */
+
+app.get("/generic", function (req, res) {
+  res.sendFile(`${__dirname}/public/generic.html`);
 });
 
-app.get("/about", function (req, res) {
-  res.send("About us");
+app.get("/elements", function (req, res) {
+  res.sendFile(`${__dirname}/public/elements.html`);
 });
 
 /* Cuando el cliente solicita una ruta que no existe maneja este error en una forma sencilla. Pero se puede agregar una ruta para esto. */
