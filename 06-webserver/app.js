@@ -2,6 +2,14 @@ const express = require("express");
 const app = express();
 const port = 8080;
 
+/* Handlebars */
+
+// TODO: require('hbs')
+
+app.set("view engine", "hbs");
+
+/* --------------------------------------------------------------- */
+
 /* Mostrar contenido estatico, primero creamos una carpeta llamada public*/
 
 /* Necesitamos decirle a node que queremos que nuestra página sea de contenido publico para poder mostrarla en la web.  */
@@ -14,6 +22,12 @@ app.use(express.static("public"));
 /* app.get("/", function (req, res) {
   res.send("Hello World");
 }); */
+
+/* --------------------------------------------------------------- */
+
+app.get("/", (req, res) => {
+  res.render("home");
+});
 
 app.get("/generic", function (req, res) {
   res.sendFile(`${__dirname}/public/generic.html`);
