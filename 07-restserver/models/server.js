@@ -1,15 +1,29 @@
 const express = require("express");
 const cors = require("cors");
+const { dbConnection } = require("../database/config");
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
+    this.usersPath = "/api/usuarios";
+
+    // conectar a db
+    this.conectarDB();
 
     // Middlewares
     this.middlewares();
+
+    // lectura y parseo del body
+    /* Esto intenta serializar la informacion recibida de los metodos HTTP a formato json*/
+    this.app.use(express.json());
+
     // Rutas de mi aplicacion
     this.routes();
+  }
+
+  async conectarDB() {
+    await dbConnection();
   }
 
   middlewares() {
@@ -20,26 +34,7 @@ class Server {
   }
 
   routes() {
-    this.app.get("/api", (req, res) => {
-      res.json({
-        msg: "get API",
-      });
-    });
-    this.app.put("/api", (req, res) => {
-      res.json({
-        msg: "put API",
-      });
-    });
-    this.app.post("/api", (req, res) => {
-      res.json({
-        msg: "post API",
-      });
-    });
-    this.app.delete("/api", (req, res) => {
-      res.json({
-        msg: "delete API",
-      });
-    });
+    this.app.use(this.usersPath, require("../routes/users"));
   }
 
   listen() {
