@@ -2,7 +2,6 @@
 const { response, request } = require("express");
 const bcrypt = require("bcrypt");
 const Usuario = require("../models/user");
-const { validationResult } = require("express-validator");
 
 const usersGet = (req = request, res = response) => {
   // obtener los datos que vienen en la query
@@ -19,12 +18,6 @@ const usersGet = (req = request, res = response) => {
 };
 
 const usersPost = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json(errors);
-  }
-
   /* extraer el body */
   const { nombre, correo, password, rol } = req.body;
 
