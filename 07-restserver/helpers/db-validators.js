@@ -15,15 +15,21 @@ const isEmailInDB = async (correo = "") => {
   const isEmail = await Usuario.findOne({ correo });
 
   if (isEmail) {
-    /* return res.status(400).json({
-      msg: "El correo ya se encuentra registrado.",
-    }) */
+    throw new Error(`El correo: ${correo}, ya se encuentra registrado.`);
+  }
+};
 
-    throw new Error(`El correo ${correo} ya se encuentra registrado.`);
+// verificar si el id no existe
+const isUserById = async (id) => {
+  const isID = await Usuario.findById(id);
+
+  if (!isID) {
+    throw new Error(`No existe un usuario con el ID: ${id}.`);
   }
 };
 
 module.exports = {
   isValidRole,
   isEmailInDB,
+  isUserById,
 };
