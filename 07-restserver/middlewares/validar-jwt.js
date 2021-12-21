@@ -1,4 +1,5 @@
 const { response, request } = require("express");
+
 const jwt = require("jsonwebtoken");
 
 const validarJWT = (req = request, res = response, next) => {
@@ -13,6 +14,7 @@ const validarJWT = (req = request, res = response, next) => {
   try {
     const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
+    /* En js todo es por referencia, por lo cual esta request es la misma en todos lados. */
     req.uid = uid;
 
     next();
