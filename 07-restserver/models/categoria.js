@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+require("./user");
 
 const CategorySchema = Schema({
   nombre: {
@@ -13,7 +14,7 @@ const CategorySchema = Schema({
   },
   usuario: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: "User",
     required: true,
   },
 });
