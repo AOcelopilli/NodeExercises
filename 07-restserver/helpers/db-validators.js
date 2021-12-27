@@ -1,5 +1,5 @@
 // Validar roles contra la base de datos
-const { Categoria, Role, Usuario } = require("../models");
+const { Categoria, Role, Usuario, Producto } = require("../models");
 
 const isValidRole = async (rol = "") => {
   const isRole = await Role.findOne({ rol });
@@ -37,9 +37,20 @@ const existeCategoria = async (id) => {
   }
 };
 
+// verificar que exista la categoria para el producto.
+
+const existeProductoPorId = async (id) => {
+  const isID = await Producto.findById(id);
+
+  if (!isID) {
+    throw new Error(`No existe el id ${id}`);
+  }
+};
+
 module.exports = {
   isValidRole,
   isEmailInDB,
   isUserById,
   existeCategoria,
+  existeProductoPorId,
 };
