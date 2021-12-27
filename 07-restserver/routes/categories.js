@@ -19,7 +19,11 @@ router.get("/", obtenerCategorias);
 // obtener categoria por id
 router.get(
   "/:id",
-  [check("id").custom(existeCategoria), validarCampos],
+  [
+    check("id", "No es un ID valido").isMongoId(),
+    check("id").custom(existeCategoria),
+    validarCampos,
+  ],
   obtenerCategoria
 );
 
@@ -40,8 +44,8 @@ router.put(
   "/:id",
   [
     validarJWT,
-    check("id").custom(existeCategoria),
     check("id", "No es un ID valido").isMongoId(),
+    check("id").custom(existeCategoria),
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     tieneRole("ADMIN_ROLE", "VENTAS_ROLE"),
     validarCampos,
@@ -54,8 +58,8 @@ router.delete(
   "/:id",
   [
     validarJWT,
-    check("id").custom(existeCategoria),
     check("id", "No es un ID valido").isMongoId(),
+    check("id").custom(existeCategoria),
     tieneRole("ADMIN_ROLE", "VENTAS_ROLE"),
     validarCampos,
   ],

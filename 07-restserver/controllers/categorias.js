@@ -12,7 +12,7 @@ const obtenerCategorias = async (req, res = response) => {
     Categoria.find(query)
       .skip(Number(desde))
       .limit(Number(limit))
-      .populate("usuario"),
+      .populate("usuario", "nombre"),
   ]);
 
   res.json({
@@ -62,8 +62,14 @@ const crearCategoria = async (req, res = response) => {
 // actualizarCategoria
 const actualizarCategoria = async (req, res = response) => {
   const { id } = req.params;
-  const nombre = req.body.nombre.toUpperCase();
+  const { estado, usuario, ...data } = req.body;
 
+  const nombre = data.nombre.toUpperCase();
+
+  data.nombre = nombre;
+  data.usuario = req.user._id;
+
+  // Verificar que la categoria no exista para evitar duplicidad.
   const categoriaDB = await Categoria.findOne({ nombre });
 
   if (categoriaDB) {
@@ -72,22 +78,22 @@ const actualizarCategoria = async (req, res = response) => {
     });
   }
 
-  const categoria = await Categoria.findByIdAndUpdate(id, { nombre });
+  // Actualizar categoria
+  const categoria = await Categoria.findByIdAndUpdate(id, data, { new: true });
 
-  res.json({
-    msg: "categoria actualizada",
-    categoria,
-  });
+  res.status(201).json(categoria);
 };
-
-// borrarCategoria - estado:false
 
 const borrarCategoria = async (req, res = response) => {
   const { id } = req.params;
 
-  const categoria = await Categoria.findByIdAndUpdate(id, { estado: false });
+  const categoria = await Categoria.findByIdAndUpdate(
+    id,
+    { estado: false },
+    { new: true }
+  );
 
-  res.json(categoria);
+  res.status(200).json(categoria);
 };
 
 module.exports = {
