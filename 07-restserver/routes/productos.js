@@ -43,8 +43,6 @@ router.post(
   crearProducto
 );
 
-// actualizar un registro por id - privado - cualquiera con token valido
-
 router.put(
   "/:id",
   [
@@ -57,7 +55,6 @@ router.put(
   actualizarProducto
 );
 
-// borrar Producto - admin
 router.delete(
   "/:id",
   [
