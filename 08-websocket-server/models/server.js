@@ -34,10 +34,20 @@ class Server {
 
   sockets() {
     this.io.on("connection", (socket) => {
-      console.log("Cliente conectado");
+      //console.log("Cliente conectado");
 
       socket.on("disconnect", () => {
-        console.log("Cliente desconectado", socket.id);
+        //console.log("Cliente desconectado", socket.id);
+      });
+
+      // con socket.on escuchamos lo que es enviado
+      socket.on("enviar-mensaje", (payload, callback) => {
+        // con esto enviamos mensaje a todos los clietnes
+        //this.io.emit("enviar-mensaje", payload.mensaje);
+
+        const id = 123456;
+
+        callback(id);
       });
     });
   }
