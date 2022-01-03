@@ -27,6 +27,7 @@ $btnEnviar.addEventListener("click", () => {
     fecha: new Date().getTime(),
   };
 
+  // desde el cliente emitimos un evento con nombre personalizado que es escuchado en el server.
   socket.emit("enviar-mensaje", payload, (id) => {
     console.log("Desde el server", id);
   });
