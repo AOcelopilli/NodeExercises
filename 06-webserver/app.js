@@ -30,11 +30,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/generic", function (req, res) {
-  res.sendFile(`${__dirname}/public/generic.html`);
+  res.sendFile(`${__dirname}/public/template/generic.html`);
 });
 
 app.get("/elements", function (req, res) {
-  res.sendFile(`${__dirname}/public/elements.html`);
+  res.sendFile(`${__dirname}/public/template/elements.html`);
 });
 
 /* Cuando el cliente solicita una ruta que no existe maneja este error en una forma sencilla. Pero se puede agregar una ruta para esto. */
