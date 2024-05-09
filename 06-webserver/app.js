@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require("express");
+const hbs = require('hbs');
+
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 /* Handlebars */
 
-// TODO: require('hbs')
 
 app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + '/views/partials');
 
 /* --------------------------------------------------------------- */
 
@@ -26,11 +29,17 @@ app.use(express.static("public"));
 /* --------------------------------------------------------------- */
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {
+    nombre: 'Angel Pineda',
+    titulo: 'Curso de Node'
+  });
 });
 
 app.get("/generic", function (req, res) {
-  res.sendFile(`${__dirname}/public/template/generic.html`);
+    res.render("generic", {
+        nombre: 'Angel Pineda',
+        titulo: 'Curso de Node'
+    });
 });
 
 app.get("/elements", function (req, res) {
