@@ -42,7 +42,7 @@ app.get("/elements", function (req, res) {
 /* Una ruta que funciona como comodín */
 
 app.get("*", function (req, res) {
-  res.send("404 | Page not found.");
+  res.sendFile(`${__dirname}/public/404.html`);
 });
 
 app.listen(port, () => {
